@@ -17,18 +17,22 @@ public class Climber extends SubsystemBase {
 
   /** Creates a new Climber. */
   public Climber() {
-    Contract();
+    Config();
   }
-  
-  public void Extend() {
+
+  public void Extend(int bit) {
     leftPiston.set(DoubleSolenoid.Value.kForward);
     rightPiston.set(DoubleSolenoid.Value.kForward);
   }
-  public void Contract() {
+  public void Config() {
     leftPiston.set(DoubleSolenoid.Value.kReverse);
     rightPiston.set(DoubleSolenoid.Value.kReverse);
   }
-  public void Off() {
+  public void Contract(int bit) {
+    leftPiston.set(DoubleSolenoid.Value.kReverse);
+    rightPiston.set(DoubleSolenoid.Value.kReverse);
+  }
+  public void Off(int bit) {
     leftPiston.set(DoubleSolenoid.Value.kOff);
     rightPiston.set(DoubleSolenoid.Value.kOff);
   }
