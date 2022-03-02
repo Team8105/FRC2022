@@ -14,10 +14,9 @@ package frc.robot;
  */
 public final class Constants {
   public static final class DriveConstants {
-    public static final int kMotorIzquierdo = 0;
-    public static final int kMotorDerechoFrontal = 1;
-    public static final int kRightMotor1Port = 2;
-    public static final int kRightMotor2Port = 3;
+    public static final int
+    kLeftMaster = 4, kRightMaster = 5,
+    kLeftFollow = 41, kRightFollow = 51;
 
     public static final int[] kLeftEncoderPorts = new int[] {0, 1};
     public static final int[] kRightEncoderPorts = new int[] {2, 3};
@@ -27,13 +26,19 @@ public final class Constants {
     public static final int kEncoderCPR = 1024;
     public static final double kWheelDiameterInches = 6;
     public static final double kEncoderDistancePerPulse =
-        // Assumes the encoders are directly mounted on the wheel shafts
+  // Assumes the encoders are directly mounted on the wheel shafts (ours are mounted on a gearbox)
         (kWheelDiameterInches * Math.PI) / kEncoderCPR;
   }
 
-  public static final class HatchConstants {
-    public static final int kHatchSolenoidModule = 0;
-    public static final int[] kHatchSolenoidPorts = new int[] {0, 1};
+  public static final class ClimberConstants {
+    public static final int kPneumaticsModule = 0;
+    public static final int[] kPiston1Ports = new int[] {0, 2};
+    public static final int[] kPiston2Ports = new int[] {1, 3};
+  }
+
+  public static final class ShooterConstants{
+    public static final int
+    kShooterRight = 6, kShooterLeft = 7;
   }
 
   public static final class AutoConstants {
@@ -43,6 +48,6 @@ public final class Constants {
   }
 
   public static final class OIConstants {
-    public static final int kDriverControllerPort = 0;
+    public static final int kControllerPort = 0;
   }
 }
