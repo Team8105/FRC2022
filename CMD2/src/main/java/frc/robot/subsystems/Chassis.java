@@ -7,18 +7,20 @@ package frc.robot.subsystems;
 import frc.robot.Constants.DriveConstants;
 
 //Importacion de librerias
+//import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 //import edu.wpi.first.wpilibj.Encoder;
+
 public class Chassis extends SubsystemBase {
   // Chassis Motors
   private final WPI_VictorSPX
   leftMaster = new WPI_VictorSPX(DriveConstants.kLeftMaster),
   rightMaster = new WPI_VictorSPX(DriveConstants.kRightMaster);
-//  leftFollow = new WPI_VictorSPX(DriveConstants.kLeftFollow),
-//  rightFollow = new WPI_VictorSPX(DriveConstants.kRightFollow);
+  //leftFollow = new WPI_VictorSPX(DriveConstants.kLeftFollow),
+  //rightFollow = new WPI_VictorSPX(DriveConstants.kRightFollow);
 
 
 
@@ -39,16 +41,14 @@ public class Chassis extends SubsystemBase {
           DriveConstants.kRightEncoderPorts[1],
           DriveConstants.kRightEncoderReversed);
 */
-  /** Creates a new DriveSubsystem. */
+  /** Creates a new ChassisSubsystem. */
   public Chassis() {
-    // We need to invert one side of the drivetrain so that positive voltages
-    // result in both sides moving forward. Depending on how your robot's
-    // gearbox is constructed, you might have to invert the left side instead.
-    leftMaster.setInverted(true);
-
+    configControllers();
+    
     // Sets the distance per pulse for the encoders
     //leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
     //rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
+    new PrintCommand("Hola");
   }
 
   /**
@@ -61,7 +61,25 @@ public class Chassis extends SubsystemBase {
     DifferentialChassis.arcadeDrive(fwd, rot);
   }
 
-  /** Resets the drive encoders to currently read a position of 0. */
+  private void configControllers(){
+    //Default de controladores
+    leftMaster.configFactoryDefault();
+    rightMaster.configFactoryDefault();
+    //leftFollow.configFactoryDefault();
+    //rightFollow.configFactoryDefault();
+    
+    //Invertimos
+    leftMaster.setInverted(false);
+    rightMaster.setInverted(true);
+    //leftFollow.setInverted(InvertType.FollowMaster);
+    //rightFollow.setInverted(InvertType.FollowMaster);
+    
+    //Establecemos followers
+    //leftFollow.follow(leftMaster);
+    //rightFollow.follow(rightMaster);
+  }
+
+  /** Reiniciamos los encoders para ponerlos a 0 */
   public void resetEncoders() {
     //leftEncoder.reset();
     //rightEncoder.reset();

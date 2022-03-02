@@ -3,12 +3,44 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
+//Comunicación entre archivos
+import frc.robot.Constants.ShooterConstants;
+//Librerias
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
+  // Shooter Motors
+  private final WPI_VictorSPX
+  mShooterRight = new WPI_VictorSPX(ShooterConstants.kShooterRight),
+  mShooterLeft = new WPI_VictorSPX(ShooterConstants.kShooterLeft);
+
+  private double topSpeed = 1.00,
+  currentSpeed = 0, increment = 0.05;
+
   /** Creates a new Shooter. */
-  public Shooter() {}
+  public Shooter() {
+    mShooterRight.configFactoryDefault();
+    mShooterRight.setInverted(false);
+    
+    mShooterLeft.configFactoryDefault();
+    mShooterLeft.setInverted(true);
+
+  }
+  public void Activate(){ //Método que activa el disparador
+
+    if(currentSpeed < topSpeed){ //Condicional usada para subir suavemente aceleración
+    currentSpeed += increment;
+    }
+    mShooterLeft.setVoltage(12);
+    mShooterRight.setVoltage(12);
+  }
+
+  public void Stop() {
+    currentSpeed = 0;
+    mShooterLeft.setVoltage(0);
+    mShooterRight.setVoltage(0);
+  }
 
   @Override
   public void periodic() {

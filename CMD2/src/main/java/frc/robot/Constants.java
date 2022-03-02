@@ -30,15 +30,20 @@ public final class Constants {
         (kWheelDiameterInches * Math.PI) / kEncoderCPR;
   }
 
-  public static final class ClimberConstants {
+  public static final class kClimber{
     public static final int kPneumaticsModule = 0;
-    public static final int[] kPiston1Ports = new int[] {0, 2};
-    public static final int[] kPiston2Ports = new int[] {1, 3};
+    public static final int[] kPiston1Ports = new int[] {0, 2},
+                              kPiston2Ports = new int[] {1, 3};
   }
 
   public static final class ShooterConstants{
     public static final int
     kShooterRight = 6, kShooterLeft = 7;
+  }
+
+  public static final class IntakeConstants{
+    public static final int
+    kIntake = 0, kConveyor = 1;
   }
 
   public static final class AutoConstants {
