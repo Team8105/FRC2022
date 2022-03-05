@@ -20,7 +20,7 @@ public class Climber extends SubsystemBase {
     Config();
   }
 
-  public void Extend(int bit) {
+  public void Extend() {
     leftPiston.set(DoubleSolenoid.Value.kForward);
     rightPiston.set(DoubleSolenoid.Value.kForward);
   }
@@ -28,14 +28,15 @@ public class Climber extends SubsystemBase {
     leftPiston.set(DoubleSolenoid.Value.kReverse);
     rightPiston.set(DoubleSolenoid.Value.kReverse);
   }
-  public void Contract(int bit) {
+  public void Contract() {
     leftPiston.set(DoubleSolenoid.Value.kReverse);
     rightPiston.set(DoubleSolenoid.Value.kReverse);
   }
-  public void Off(int bit) {
+  public void Off() {
     leftPiston.set(DoubleSolenoid.Value.kOff);
     rightPiston.set(DoubleSolenoid.Value.kOff);
   }
+
 
   @Override
   public void periodic() {

@@ -42,7 +42,7 @@ public class RobotContainer {
   public static XboxController ControlX = new XboxController(OIConstants.kControllerPort);
   
   //Comandos del robot
-//  private final Climb climb = new Climb();
+  private final Climb climb = new Climb();
   private final Drive drive = new Drive(chassis);
 
 
@@ -57,7 +57,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    //chassis.setDefaultCommand(XXXXXXXX);
+    chassis.setDefaultCommand(drive);
     //climber.setDefaultCommand(XXXXXXXX);
     
     autonomous.addOption("Izquierda", "izquierda");

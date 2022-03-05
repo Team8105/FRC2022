@@ -28,8 +28,8 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double fwd = RobotContainer.ControlX.getRawAxis(3) - RobotContainer.ControlX.getRawAxis(2);
-    double rot = RobotContainer.ControlX.getRawAxis(0);
+    double fwd = RobotContainer.ControlX.getRawAxis(1);
+    double rot = RobotContainer.ControlX.getRawAxis(2);
     chassis.arcadeDrive(fwd, rot * 1);
 
     SmartDashboard.putNumber("SpeedChassis", fwd);

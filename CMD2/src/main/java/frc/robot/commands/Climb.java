@@ -24,21 +24,21 @@ public class Climb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /*
+    
     switch (RobotContainer.ControlX.getPOV()) {
       case 180:
-      climber.kForward();
+      climber.Extend();
       break;
       
       case 0:
-      climber.kReverse();
+      climber.Contract();
         break;
     
       default:
-        climber.kOff();
-        climber.kOff();
+        climber.Off();
+        climber.Off();
         break;
-    }*/
+    }
   }
 
   // Called once the command ends or is interrupted.

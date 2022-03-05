@@ -15,8 +15,8 @@ package frc.robot;
 public final class Constants {
   public static final class DriveConstants {
     public static final int
-    kLeftMaster = 4, kRightMaster = 5,
-    kLeftFollow = 41, kRightFollow = 51;
+    kLeftMaster = 5, kRightMaster = 4,
+    kLeftFollow = 51, kRightFollow = 41;
 
     public static final int[] kLeftEncoderPorts = new int[] {0, 1};
     public static final int[] kRightEncoderPorts = new int[] {2, 3};

@@ -34,11 +34,12 @@ public class Robot extends TimedRobot {
 
   private final Compressor paps = new Compressor(PneumaticsModuleType.CTREPCM);
   //Initialize motors
-  WPI_VictorSPX MotorDF = new WPI_VictorSPX(5); //Chassis
-  WPI_VictorSPX MotorIF = new WPI_VictorSPX(4); //Chassis
-  WPI_VictorSPX Disparador = new WPI_VictorSPX(6); //Intake
-  WPI_VictorSPX Disparador2 = new WPI_VictorSPX(7);
-  VictorSP Intake = new VictorSP(2);
+  WPI_VictorSPX MotorDF = new WPI_VictorSPX(4); //Chassis
+  WPI_VictorSPX MotorIF = new WPI_VictorSPX(5); //Chassis
+  WPI_VictorSPX Disparador = new WPI_VictorSPX(6); //Disparador
+  WPI_VictorSPX Disparador2 = new WPI_VictorSPX(7); //Disparador2
+  VictorSP Intake = new VictorSP(2); //Intake
+  VictorSP Intake2 = new VictorSP(3); //Intake
   //VictorSP Disparador2 = new VictorSP(2);
 
   //Initialize teleop settings
@@ -62,8 +63,8 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     MotorDF.setInverted(true);
-    Disparador2.setInverted(false);
-    //paps.disable();
+    Disparador2.setInverted(true);
+    paps.disable();
   }
 
   /**
@@ -116,8 +117,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {//AXIS 2= REVERSA 3 = ADELANTE
-    double avanzar = ControlX.getRawAxis(3) - ControlX.getRawAxis(2);
-    double girar = +1 * ControlX.getRawAxis(0);
+    double avanzar = ControlX.getRawAxis(1);
+    double girar = +1 * ControlX.getRawAxis(2);
 
     /* deadband gamepad 10% */
     if (Math.abs(avanzar) < 0.10) {
@@ -131,16 +132,19 @@ public class Robot extends TimedRobot {
     //Operaciones con botones
     
     //Recoger
-    if(ControlX.getRawButton(5)){//Recoger
+    if(ControlX.getRawButton(7)){//Recoger
       Intake.set(1);
+      Intake2.set(0.5);
     } else if(ControlX.getRawButton(6)){ //Disparar
       Disparador.set(1);
-      Disparador2.set(-1);
+      Disparador2.set(1);
     } else if(ControlX.getRawButton(1)){ //Expulsar
     Intake.set(-1);
+    Intake2.set(-0.5);
     }
     else{
     Intake.set(0);
+    Intake2.set(0);
     Disparador2.set(0);
     Disparador.set(0);
   }
