@@ -44,6 +44,8 @@ public class RobotContainer {
   //Comandos del robot
   private final Climb climb = new Climb(climber);
   private final Drive drive = new Drive(chassis);
+  private final Shoot shoot = new Shoot(shooter);
+
   //private final Climb climb = new Climb(climber);
 
 
@@ -60,6 +62,7 @@ public class RobotContainer {
     configureButtonBindings();
     chassis.setDefaultCommand(drive);
     climber.setDefaultCommand(climb);
+    shooter.setDefaultCommand(shoot);
     
     autonomous.addOption("Izquierda", "izquierda");
     autonomous.addOption("Centro", "centro");
@@ -83,11 +86,6 @@ public class RobotContainer {
     //new POVButton(ControlX, 0).whileHeld(new EjectBalls(intake));
   
 
-
-
-
-
-
   }
 
   /**
@@ -108,10 +106,9 @@ public class RobotContainer {
       return new SequentialCommandGroup(new PrintCommand("5"),
       new PrintCommand("6"), new PrintCommand("7"), new PrintCommand("8"));
     }
-    else{
-    return null;
-  }
+    else{return null;}
 
     return m_autoCommand;
-}
+  }
+
 }
