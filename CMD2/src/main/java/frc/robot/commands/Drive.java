@@ -16,7 +16,6 @@ public class Drive extends CommandBase {
   public Drive(Chassis chassis) {
     this.chassis = chassis;
     addRequirements(this.chassis);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -32,8 +31,8 @@ public class Drive extends CommandBase {
     double rot = RobotContainer.ControlX.getRawAxis(2);
     chassis.arcadeDrive(fwd, rot * 1);
 
-    SmartDashboard.putNumber("SpeedChassis", fwd);
-    SmartDashboard.putNumber("RotChassis", rot);
+    SmartDashboard.putNumber("Aceleración Chassis: ", fwd);
+    SmartDashboard.putNumber("Rotación Chassis: ", rot);
 
   }
 

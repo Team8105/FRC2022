@@ -4,43 +4,30 @@
 
 package frc.robot.commands;
 
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Shooter;
 
-public class Climb extends CommandBase {
-  private final Climber climber;
+public class Shoot extends CommandBase {
+  private final Shooter shooter;
 
-  /** Creates a new Climb. */
-  public Climb(Climber climber) {
-    this.climber = climber;
-    addRequirements(this.climber);
+  /** Creates a new Shoot. */
+  public Shoot(Shooter shooter){
+    this.shooter = shooter;
+    addRequirements(this.shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.Config();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    
-    switch (RobotContainer.ControlX.getPOV()) {
-      case 0:
-      climber.Extend();
-      break;
-      
-      case 180:
-      climber.Contract();
-        break;
-    
-      default:
-        climber.Off();
-        climber.Off();
-        break;
-    }
+  public void execute(){
+  shooter.Activate();
+
   }
 
   // Called once the command ends or is interrupted.
