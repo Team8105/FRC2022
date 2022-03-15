@@ -5,45 +5,34 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Conveyor;
 
-public class Climb extends CommandBase {
-  private final Climber climber;
+public class ConveyorOut extends CommandBase {
 
-  /** Creates a new Climb. */
-  public Climb(Climber climber) {
-    this.climber = climber;
-    addRequirements(this.climber);
+  private final Conveyor conveyor;
+  
+  public ConveyorOut(Conveyor conveyor) {
+    this.conveyor = conveyor;
+    addRequirements(conveyor);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.Config();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  switch (RobotContainer.ControlX.getPOV()) {
-      case 0:
-      climber.Extend();
-      break;
-      
-      case 180:
-      climber.Contract();
-        break;
-    
-      default:
-        climber.Off();
-        break;
-    }
-}
+    conveyor.ejectConveyor();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    conveyor.StopConveyor();
+  }
 
   // Returns true when the command should end.
   @Override

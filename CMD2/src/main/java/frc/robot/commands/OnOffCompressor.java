@@ -5,45 +5,32 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.CompressorPepe;
 
-public class Climb extends CommandBase {
-  private final Climber climber;
-
-  /** Creates a new Climb. */
-  public Climb(Climber climber) {
-    this.climber = climber;
-    addRequirements(this.climber);
+public class OnOffCompressor extends CommandBase {
+  private final CompressorPepe compressorpepe;
+  public OnOffCompressor(CompressorPepe compressorpepe) {
+    this.compressorpepe = compressorpepe;
+    addRequirements(this.compressorpepe);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.Config();
+    compressorpepe.OffPepe();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  switch (RobotContainer.ControlX.getPOV()) {
-      case 0:
-      climber.Extend();
-      break;
-      
-      case 180:
-      climber.Contract();
-        break;
-    
-      default:
-        climber.Off();
-        break;
-    }
-}
+    compressorpepe.OnPepe();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    compressorpepe.OffPepe();
+  }
 
   // Returns true when the command should end.
   @Override

@@ -12,23 +12,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Climber extends SubsystemBase {
   // Shooter Motors
   private final DoubleSolenoid
-  leftPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0,2),
-  rightPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1,3);
-
+  leftPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 2),
+  rightPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 3);
   /** Creates a new Climber. */
   public Climber() {
     Config();
   }
 
-  public void Extend() {
+  public void Contract() {
     leftPiston.set(DoubleSolenoid.Value.kForward);
     rightPiston.set(DoubleSolenoid.Value.kForward);
   }
   public void Config() {
-    leftPiston.set(DoubleSolenoid.Value.kReverse);
-    rightPiston.set(DoubleSolenoid.Value.kReverse);
+    leftPiston.set(DoubleSolenoid.Value.kForward);
+    rightPiston.set(DoubleSolenoid.Value.kForward);
   }
-  public void Contract() {
+  public void Extend() {
     leftPiston.set(DoubleSolenoid.Value.kReverse);
     rightPiston.set(DoubleSolenoid.Value.kReverse);
   }
@@ -36,6 +35,7 @@ public class Climber extends SubsystemBase {
     leftPiston.set(DoubleSolenoid.Value.kOff);
     rightPiston.set(DoubleSolenoid.Value.kOff);
   }
+
 
 
   @Override

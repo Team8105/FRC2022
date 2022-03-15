@@ -4,27 +4,19 @@
 
 package frc.robot;
 
-//Librerias
+//Librerias FIRST
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID;
+
 //Comunicacion entre archivos
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.Constants.OIConstants;
-import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Intake;
-import frc.robot.commands.Climb;
-import frc.robot.commands.Drive;
-import frc.robot.commands.Shoot;
+import frc.robot.subsystems.*;
+import frc.robot.commands.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -38,53 +30,50 @@ public class RobotContainer {
   private final Chassis chassis = new Chassis();
   private final Climber climber = new Climber();
   private final Intake intake = new Intake();
+  private final Conveyor conveyor = new Conveyor();
   private final Shooter shooter = new Shooter();
+  private final Vision vision = new Vision();
+  private final CompressorPepe compre = new CompressorPepe();
+
   public static XboxController ControlX = new XboxController(OIConstants.kControllerPort);
   
   //Comandos del robot
   private final Climb climb = new Climb(climber);
   private final Drive drive = new Drive(chassis);
-  private final Shoot shoot = new Shoot(shooter);
-
-  //private final Climb climb = new Climb(climber);
-
 
   SendableChooser<String> autonomous = new SendableChooser<String>();
 
-
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the button bindings
-    configureButtonBindings();
-    chassis.setDefaultCommand(drive);
-    climber.setDefaultCommand(climb);
-    shooter.setDefaultCommand(shoot);
-    
     autonomous.addOption("Izquierda", "izquierda");
     autonomous.addOption("Centro", "centro");
     autonomous.addOption("Derecha", "derecha");
-  }
-  /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
+    autonomous.addOption("Linea", "linea");
+    
+    chassis.setDefaultCommand(drive);
+    climber.setDefaultCommand(climb);
+    
+    // Configure the button bindings
+    configureButtonBindings();
+}
+
   private void configureButtonBindings() {
 
     //Mapeo de los botones
-    new JoystickButton(ControlX, 1).whileHeld(new Shoot(shooter));
-    //new JoystickButton(ControlX, 2).whenPressed(new InstantCommand(intake::toExtendIntake, intake));
-    //new JoystickButton(ControlX, 3).whenPressed(new InstantCommand(intake::saveIntake, intake));
+    new JoystickButton(ControlX, 5).whileHeld(new IntakeON(intake));
+    new JoystickButton(ControlX, 5).whileHeld(new ConveyorON(conveyor));
+    new JoystickButton(ControlX, 6).whileHeld(new ConveyorON(conveyor));
+    new JoystickButton(ControlX, 6).whileHeld(new Shoot(shooter));
+    new JoystickButton(ControlX, 1).whileHeld(new Track(chassis, vision));
+    new JoystickButton(ControlX, 2 ).whenPressed(new DisparosChidos(shooter, conveyor));
+    new JoystickButton(ControlX, 8).toggleWhenPressed(new OnOffCompressor(compre));
+    new JoystickButton(ControlX, 7).toggleWhenPressed(new LimeLightLEDs(vision));
+    
     
     //POV
-    //new POVButton(ControlX, 270).whileHeld(new EjectBalls(intake));
-    //new POVButton(ControlX, 0).whileHeld(new EjectBalls(intake));
-  
+    new POVButton(ControlX, 90).whileHeld(new EjectAll(conveyor, intake));
+    //new POVButton(ControlX, 270).whenPressed(new Trucazo(shooter, conveyor, vision, chassis));
+    //Este ultimo es el comando hat trick
 
   }
 
@@ -94,9 +83,12 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+
   if(autonomous.getSelected() == "izquierda"){
-    //return new SequentialCommandGroup(new Shoot(shooter, intake, chassis).withTimeout(3.6), new PrintCommand("3"), new PrintCommand("4"));
-    }
+    return new SequentialCommandGroup(new PrintCommand("1"),
+    new PrintCommand("2"), new PrintCommand("3"), new PrintCommand("4"));
+    
+  }
     else if(autonomous.getSelected() == "centro"){
       return new SequentialCommandGroup(new PrintCommand("1"),
       new PrintCommand("2"), new PrintCommand("3"), new PrintCommand("4"));
@@ -106,9 +98,11 @@ public class RobotContainer {
       return new SequentialCommandGroup(new PrintCommand("5"),
       new PrintCommand("6"), new PrintCommand("7"), new PrintCommand("8"));
     }
-    else{return null;}
+    else{
+    
+      return null;
+    }
 
-    return m_autoCommand;
   }
 
 }

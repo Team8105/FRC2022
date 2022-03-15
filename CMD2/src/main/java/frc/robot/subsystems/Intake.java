@@ -10,39 +10,24 @@ import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
-  // Chassis Motors
+  // Intake Motors
   private final VictorSP
-  mIntake = new VictorSP(IntakeConstants.kIntake),
-  mConveyor = new VictorSP(IntakeConstants.kConveyor);
-
-  private double intakeSpeed = 1;
+  mIntake = new VictorSP(IntakeConstants.kIntakePort);
 
   /** Creates a new Intake. */
   public Intake() {
-    mIntake.setInverted(false);
-    mConveyor.setInverted(false);
-
+    mIntake.setInverted(IntakeConstants.kIntakeInvert);
   }
-  public void TakeBall(){
-    mIntake.set(intakeSpeed);
-    mConveyor.set(intakeSpeed);
+  public void ActivateIntake(){
+    mIntake.setVoltage(IntakeConstants.kIntakeVolt);
   }
 
-  public void Stop() {
-    mIntake.set(0);
-    mConveyor.set(0);
-  }
-
-  public void shootAuto(){
-    double shootSpeed = 0.25;
-    
-    mIntake.set(shootSpeed);
-    mConveyor.set(shootSpeed);
+  public void StopIntake() {
+    mIntake.setVoltage(0);
   }
   
-  public void ejectBall(){
-    mIntake.set(-1);
-    mConveyor.set(-1);
+  public void ejectIntake(){
+    mIntake.setVoltage(-12);
   }
 
   public void periodic() {

@@ -21,9 +21,9 @@ public final class Constants {
     public static final int[] kLeftEncoderPorts = new int[] {0, 1};
     public static final int[] kRightEncoderPorts = new int[] {2, 3};
     public static final boolean kLeftEncoderReversed = false;
-    public static final boolean kRightEncoderReversed = true;
+    public static final boolean kRightEncoderReversed = false;
 
-    public static final int kEncoderCPR = 1024;
+    public static final int kEncoderCPR = 2048;
     public static final double kWheelDiameterInches = 6;
     public static final double kEncoderDistancePerPulse =
   // Assumes the encoders are directly mounted on the wheel shafts (ours are mounted on a gearbox)
@@ -38,12 +38,22 @@ public final class Constants {
 
   public static final class ShooterConstants{
     public static final int
-    kShooterRight = 6, kShooterLeft = 7;
+    kShooterRightPort = 6, kShooterLeftPort = 7;
+    
+    public static final double
+    kShooterLeftVolt = 11.5, kShooterRightVolt = 11.5; 
+
   }
 
   public static final class IntakeConstants{
+    public static final boolean 
+    kConveyorInvert = false, kIntakeInvert = false;
+
     public static final int
-    kIntake = 0, kConveyor = 1;
+    kIntakePort = 1, kConveyorPort = 2;
+    
+    public static final double
+    kIntakeVolt = 12, kConveyorVolt = 12;
   }
 
   public static final class AutoConstants {

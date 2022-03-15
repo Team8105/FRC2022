@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import frc.robot.Constants;
 //Comunicación entre archivos
 import frc.robot.Constants.ShooterConstants;
 //Librerias
@@ -12,10 +13,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Shooter extends SubsystemBase {
   // Shooter Motors
   private final WPI_VictorSPX
-  mShooterRight = new WPI_VictorSPX(ShooterConstants.kShooterRight),
-  mShooterLeft = new WPI_VictorSPX(ShooterConstants.kShooterLeft);
+  mShooterRight = new WPI_VictorSPX(ShooterConstants.kShooterRightPort),
+  mShooterLeft = new WPI_VictorSPX(ShooterConstants.kShooterLeftPort);
 
-  private double topSpeed = 1.00,
+  private double topSpeed = 0.2,
   currentSpeed = 0, increment = 0.05;
 
   /** Creates a new Shooter. */
@@ -32,10 +33,10 @@ public class Shooter extends SubsystemBase {
     if(currentSpeed < topSpeed){ //Condicional usada para subir suavemente aceleración
     currentSpeed += increment;
     }
-    mShooterLeft.setVoltage(12);
-    mShooterRight.setVoltage(12);
+    mShooterLeft.setVoltage(Constants.ShooterConstants.kShooterLeftVolt);
+    mShooterRight.setVoltage(Constants.ShooterConstants.kShooterRightVolt);
   }
-
+  
   public void Stop() {
     currentSpeed = 0;
     mShooterLeft.setVoltage(0);
