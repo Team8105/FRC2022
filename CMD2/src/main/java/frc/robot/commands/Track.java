@@ -16,6 +16,7 @@ public class Track extends CommandBase {
 
   private final double kP = 0.15;
 
+  private final double min = 0.05;
 
   /** Creates a new Track. */
   public Track(Chassis chassis, Vision vision) {
@@ -34,10 +35,17 @@ public class Track extends CommandBase {
     vision.ledsOn();
     double errorX = 0 + vision.getX();
     double errorY = 0 + vision.getY();
-
+    double rot;
     //double speed = RobotContainer.controller.getRawAxis(3)-RobotContainer.controller.getRawAxis(2);//
     double fwd = errorY * 0.06;//avance
-    double rot = errorX * kP;//giro
+    
+
+    if (errorX > 1.0)
+      rot = errorX * kP - min;//giro
+    else if (errorX < 1.0)
+      rot = errorX * kP + min;
+    else 
+      rot = errorX * kP;
 
     chassis.arcadeDrive(fwd, rot);
 

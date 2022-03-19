@@ -28,7 +28,9 @@ public class Vision extends SubsystemBase {
   public Vision() {
   ledsOff();
 	CamaraUSB.setResolution(120, 160); //60,80
-  CamaraUSB.setFPS(29);
+  CamaraUSB.setFPS(24);
+  CamaraUSB.setBrightness(50);
+  CamaraUSB.setExposureManual(50);
 
 
   }
