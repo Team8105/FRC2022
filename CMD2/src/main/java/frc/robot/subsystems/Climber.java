@@ -15,23 +15,23 @@ public class Climber extends SubsystemBase {
   leftPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 2),
   rightPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 3);
   /** Creates a new Climber. */
-  public Climber() {
+public Climber() {
     Config();
   }
 
-  public void Contract() {
+public void Contract() {
     leftPiston.set(DoubleSolenoid.Value.kForward);
     rightPiston.set(DoubleSolenoid.Value.kForward);
   }
-  public void Config() {
+public void Config() {
     leftPiston.set(DoubleSolenoid.Value.kForward);
     rightPiston.set(DoubleSolenoid.Value.kForward);
   }
-  public void Extend() {
+public void Extend() {
     leftPiston.set(DoubleSolenoid.Value.kReverse);
     rightPiston.set(DoubleSolenoid.Value.kReverse);
   }
-  public void Off() {
+public void Off() {
     leftPiston.set(DoubleSolenoid.Value.kOff);
     rightPiston.set(DoubleSolenoid.Value.kOff);
   }
@@ -39,7 +39,7 @@ public class Climber extends SubsystemBase {
 
 
   @Override
-  public void periodic() {
+public void periodic() {
     // This method will be called once per scheduler run
   }
 }
