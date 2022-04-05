@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 //Comunicación entre archivos
 import frc.robot.Constants.ShooterConstants;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 //Librerias
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,7 +15,7 @@ public class Shooter extends SubsystemBase {
   mRightShooter = new VictorSP(ShooterConstants.kRightShooterPort),
   mLeftShooter = new VictorSP(ShooterConstants.kLeftShooterPort);
 
-  private final DifferentialDrive DifferentialShooter = new DifferentialDrive(mLeftShooter, mRightShooter);
+  //private final DifferentialDrive DifferentialShooter = new DifferentialDrive(mLeftShooter, mRightShooter);
 
   /** Creates a new Shooter. */
   public Shooter() {
@@ -27,20 +26,33 @@ public class Shooter extends SubsystemBase {
   }
 
 public void Activate(){
-    DifferentialShooter.arcadeDrive(ShooterConstants.kShooterSpeed, 0);
-  //  mLeftShooter.setVoltage(12);
-  //  mRightShooter.setVoltage(12);
+    mLeftShooter.setVoltage(12);
+    mRightShooter.setVoltage(12);
   
-  }
-  
-public void Stop() {
-    DifferentialShooter.arcadeDrive(0, 0);
-    
   }
 
-  public void Run(double x) {
-    DifferentialShooter.arcadeDrive(x, 0);
+public void softActivate(double x){
+  mLeftShooter.setVoltage(x);
+  mRightShooter.setVoltage(x);
+
+}
+  
+public void Stop() {
+  mLeftShooter.setVoltage(0);
+  mRightShooter.setVoltage(0);
+
+  
   }
+public void ejectShooter(){
+  mLeftShooter.setVoltage(-6);
+  mRightShooter.setVoltage(-6);
+
+}
+
+  public void Run(double x) {
+    mLeftShooter.setVoltage(x);
+    mRightShooter.setVoltage(x);
+}
 
   @Override
   public void periodic() {

@@ -4,16 +4,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Chassis;
 
-public class Drive extends CommandBase {
+public class Drive2 extends CommandBase {
   private final Chassis chassis;
 
   /** Creates a new Drive. */
-  public Drive(Chassis chassis) {
+  public Drive2(Chassis chassis) {
     this.chassis = chassis;
     addRequirements(this.chassis);
   }
@@ -27,17 +25,14 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double fwd = RobotContainer.ControlX.getRawAxis(1);
-    double rot = RobotContainer.ControlX.getRawAxis(4);
-    chassis.arcadeDrive(fwd, rot * 1);
-
-    SmartDashboard.putNumber("Aceleracion Chassis: ", fwd);
-    SmartDashboard.putNumber("Rotacion Chassis: ", rot);
-
+    chassis.arcadeDrive(0.55, 0 * 1);
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    chassis.arcadeDrive(0, 0 * 1);
+
+  }
 
   @Override
   public boolean isFinished() {

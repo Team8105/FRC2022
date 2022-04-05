@@ -33,7 +33,7 @@ public void initialize() {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
 public void execute() {
-    vision.ledsOn();
+    //vision.ledsOn();
     double errorX = 0 + vision.getX();
     double errorY = 0 + vision.getY();
 
@@ -51,7 +51,7 @@ public void execute() {
   @Override
 public void end(boolean interrupted) {
     chassis.arcadeDrive(0, 0);
-    vision.ledsOff();
+    //vision.ledsOff();
   }
 
   // Returns true when the command should end.

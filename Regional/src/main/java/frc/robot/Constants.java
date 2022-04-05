@@ -44,7 +44,7 @@ public static final class IntakeConstants{
     kIntakePort = 1, kConveyorPort = 2; //IMPORTANTEEE
     
     public static final double
-    kIntakeVolt = 4, kConveyorVolt = 12,
+    kIntakeVolt = 8, kConveyorVolt = 12,
     kIntakeSpeed = 1, kConveyorSpeed = 1;
 }
 
@@ -72,7 +72,7 @@ public static final class ShooterConstants{
   public static final class OIConstants {
     public static final int kControllerPort = 0,
     kCollectButton = 5, kShootButton = 6,
-    kEjectButton = 3, kCompressorButton = 7,
+    kEjectButton = 1, kCompressorButton = 7,
     kShootsButton = 6, kLEDsButton = 8,
     kSuperButton = 2;
   }

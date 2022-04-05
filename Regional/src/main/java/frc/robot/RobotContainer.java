@@ -17,7 +17,6 @@ import frc.robot.autos.Linea;
 import frc.robot.autos.Precargada;
 import frc.robot.subsystems.*;
 import frc.robot.commands.*;
-import frc.robot.subroutines.SUPER;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,6 +41,7 @@ public class RobotContainer {
   //Comandos del robot
   private final Climb climb = new Climb(climber);
   private final Drive drive = new Drive(chassis);
+//  private final lowerShoot lowershoot = new lowerShoot(shooter);
 
   SendableChooser<String> autonomous = new SendableChooser<String>();
 
@@ -54,6 +54,8 @@ public class RobotContainer {
     
     chassis.setDefaultCommand(drive);
     climber.setDefaultCommand(climb);
+    //shooter.setDefaultCommand(new lowerShoot(shooter));
+
     
     // Configure the button bindings
     configureButtonBindings();
@@ -63,14 +65,16 @@ public class RobotContainer {
 
     //Mapeo de los botones
     new JoystickButton(ControlX, OIConstants.kCompressorButton).toggleWhenPressed(new CompresorOnOff(compresor));
-    new JoystickButton(ControlX, OIConstants.kLEDsButton).toggleWhenPressed(new LimeLightLEDs(vision));
-    new JoystickButton(ControlX, OIConstants.kEjectButton).whileHeld(new EjectAll(conveyor, intake));
+    new JoystickButton(ControlX, OIConstants.kEjectButton).whileHeld(new EjectAll(conveyor, intake, shooter)); //A
     new JoystickButton(ControlX, OIConstants.kCollectButton).whileHeld(new ConveyorON(conveyor));
     new JoystickButton(ControlX, OIConstants.kCollectButton).whileHeld(new IntakeON(intake));
-    new JoystickButton(ControlX, OIConstants.kShootButton).whileHeld(new Shoot(shooter));
+    new JoystickButton(ControlX, OIConstants.kShootButton).whileHeld(new Shoot(shooter)); // Disparo duro
+    //new JoystickButton(ControlX, 2).whileHeld(new lowerShoot(shooter)); // B Disparo suave
 
-    new JoystickButton(ControlX, OIConstants.kSuperButton).whenPressed(new SUPER(shooter, conveyor, vision, chassis));
 
+    new JoystickButton(ControlX, 8).whileHeld(new Track(chassis, vision));
+    //new JoystickButton(ControlX, OIConstants.kSuperButton).whenPressed(new SUPER(shooter, conveyor, vision, chassis));
+    //new JoystickButton(ControlX, 4).whenPressed(new SUPER(shooter, conveyor, vision, chassis));
 
 }
 
@@ -86,12 +90,12 @@ public class RobotContainer {
     
   }
     else if(autonomous.getSelected() == "linea"){
-      return new Linea(chassis);
+      return new Linea(chassis, shooter);
     }
 
 
     else{ // Cerramos el bucle selector de autonomo sin respuesta
-      return null;
+      return new Linea(chassis, shooter);
     }
 
   }

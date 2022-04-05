@@ -5,20 +5,23 @@
 package frc.robot.autos;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.AutoDrive;
+//import frc.robot.AutoConveyor;
+import frc.robot.commands.Drive2;
+import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Chassis;
+//import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Linea extends SequentialCommandGroup {
   /** Creates a new Linea. */
-  public Linea(Chassis chassis) {
+  public Linea(Chassis chassis, Shooter shooter) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new AutoDrive(chassis, -0.75, 0).withTimeout(1)
-
+      new Shoot(shooter).withTimeout(1.5), new Drive2(chassis).withTimeout(4)
 
     );
   }

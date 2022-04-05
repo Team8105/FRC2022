@@ -29,18 +29,19 @@ public class SUPER extends ParallelCommandGroup {
     ),
 
     new SequentialCommandGroup(
-            new AutoShoot(shooter, -1).withTimeout(1),      // Activa el disparador -100% por 1 segundo
-            new AutoConveyor(conveyor, -1).withTimeout(1),  // Activa conveyor -100% por 1 segundo
+            new AutoShoot(shooter, -0.35).withTimeout(0.3),      // Activa el disparador -100% por 1 segundo
+            new AutoConveyor(conveyor, -0.35).withTimeout(0.3),
+            new ParallelCommandGroup(new SequentialCommandGroup(
             new WaitCommand(3),                             // Delay para recargar motores
-            new AutoConveyor(conveyor, 1).withTimeout(1),   // Activa conveyor 100% por 1 segundo
+            new AutoConveyor(conveyor, 1).withTimeout(0.5),   // Activa conveyor 100% por 1 segundo
             new WaitCommand(3),                             // Delay para recargar motores
-            new AutoConveyor(conveyor, 1).withTimeout(1)    // Ultima pelota
+            new AutoConveyor(conveyor, 1).withTimeout(0.5)    // Ultima pelota))  // Activa conveyor -100% por 1 segundo
+           
     ),
-
-    new SequentialCommandGroup(
-            new WaitCommand(2.5),                           // Delay usado para evitar sistemas choke
-            new AutoShoot(shooter, 1).withTimeout(6)        // Enciende el disparador 6 segundos
-    )
+    new AutoShoot(shooter, 1).withTimeout(6)
+    
+    ))
+    
 
     );
   }

@@ -67,14 +67,7 @@ public class Chassis extends SubsystemBase {
     
   }
 
-public void electrofreno(){
-        //Funcion para quitar el electrofreno
-        leftMaster.setNeutralMode(NeutralMode.Coast);
-        rightMaster.setNeutralMode(NeutralMode.Coast);
-        leftFollower.setNeutralMode(NeutralMode.Coast);
-        rightFollower.setNeutralMode(NeutralMode.Coast);
-  }
-
+  
   /**
    * Sets the max output of the drive. Useful for scaling the drive to drive more slowly.
    *
